@@ -5,14 +5,11 @@ public class PlaneController : MonoBehaviour
 {
     public GameObject PlaneObject;
     public GameObject Explosion;
-//    public Camera GameOverCamera;
-    public GameOverCanvasController CanvasController;
 
     private Camera _mainCamera;
 
 	void Start () {
         _mainCamera = Camera.main;
-//        GameOverCamera.gameObject.SetActive(false);
 	}
 	
 	void Update ()
@@ -69,9 +66,7 @@ public class PlaneController : MonoBehaviour
         Instantiate(Explosion, PlaneObject.transform.position, Quaternion.identity);
         Destroy(PlaneObject);
         PlayerManager.Instance.GameOver();
-//        _mainCamera.gameObject.SetActive(false);
-//        GameOverCamera.gameObject.SetActive(true);
         GameUIManager.Instance.GameOver(gameObject);
-        // CanvasController.Show();
+        CameraManager.Instance.GameOver();
     }
 }

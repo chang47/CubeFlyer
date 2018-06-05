@@ -29,8 +29,6 @@ public class GameUIManager : MonoBehaviour
     /// </summary>
     public void GameOver(GameObject player)
     {
-        // TODO add the prefab and then show it instead of hiding it like what we're doing it here
-        //CanvasController.Show();
         Instantiate(GameOverCanvas, player.transform.position, Quaternion.identity);
 
     }
