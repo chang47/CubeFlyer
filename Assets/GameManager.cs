@@ -2,39 +2,40 @@
 
 public class GameManager : MonoBehaviour
 {
-    public enum GameState { Playing, GameOver }
+    // TODO note to self you need to add back in the game state logic that we had to stop counting score
 
-    private int _score = 0;
+
+    public static GameManager Instance;
     private int _coin = 0;
-    private GameState _currentState;
+    void Start ()
+	{
+	    if (Instance != null)
+	    {
+	        // If Instance already exists, we should get rid of this game object
+	        // and use the original game object that set Instance   
+	        Destroy(gameObject);
+	        return;
+	    }
 
-    void Start()
-    {
-        _score = 0;
+	    // If Instance doesn't exist, we initialize the Player Manager
+	    Init();
+	}
+    
+
+    private void Init() {
+        Instance = this;
         _coin = 0;
-        _currentState = GameState.Playing;
     }
 
-    void Update()
-    {
-        if (_currentState == GameState.Playing)
-        {
-            _score++;
-        }
-    }
-
+    // Called from outside function for when the player collects a coin.
     public void CollectCoin()
     {
         _coin++;
     }
 
-    public void GameOver()
+    // Return the number of coins that we have collected.
+    public int GetCoin() 
     {
-        _currentState = GameState.GameOver;
-    }
-
-    public GameState GetGameState()
-    {
-        return _currentState;
+        return _coin;
     }
 }

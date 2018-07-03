@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class PlaneController : MonoBehaviour
 {
-    public GameObject PlaneObject;
-    public GameObject Explosion;
-
     private Camera _mainCamera;
 
 	void Start () {
@@ -22,18 +19,13 @@ public class PlaneController : MonoBehaviour
 	    }
 	}
 
-    void OnTriggerEnter(Collider other)
-    {
-        EnemyCollision();
-    }
-
     /// <summary>
     /// Moves the player forward and to the side based off of where they're looking at with the cardboard.
     /// </summary>
     private void MovePlayer()
     {
         Vector3 movement = GetMoveSpeed(_mainCamera.transform.rotation.x, _mainCamera.transform.rotation.y);
-        transform.position += (transform.forward + movement) / 4;
+        transform.position += (transform.forward + movement) / 2;
     }
 
     /// <summary>
@@ -56,17 +48,5 @@ public class PlaneController : MonoBehaviour
             xMove *= -1;
 
         return new Vector3(xMove, yMove, 0f);
-    }
-
-    /// <summary>
-    /// Destroy the player and set the current state to the dead state.
-    /// </summary>
-    private void EnemyCollision()
-    {
-        Instantiate(Explosion, PlaneObject.transform.position, Quaternion.identity);
-        Destroy(PlaneObject);
-        PlayerManager.Instance.GameOver();
-        GameUIManager.Instance.GameOver(gameObject);
-        CameraManager.Instance.GameOver();
     }
 }
