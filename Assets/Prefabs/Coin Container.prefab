@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 4359898448992654}
   - component: {fileID: 114024595286975230}
   - component: {fileID: 65362486530468344}
+  - component: {fileID: 114365549090317792}
   m_Layer: 0
   m_Name: Coin Container
   m_TagString: Coin
@@ -167,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc4858176ae45f49a7847a23ffc02b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollectCoinSFX: {fileID: 8300000, guid: 67baed5625e39e540afd5a0403f194c2, type: 3}
 --- !u!114 &114176764636186000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,5 +178,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a6ce15111b0cd146aa257df2830bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114365549090317792
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1993961980823198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a806efba461d824c9a2bebfbe0b1e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

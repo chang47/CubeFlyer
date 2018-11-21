@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
     public static GameUIManager Instance;
     public GameObject GameOverCanvas;
+    public Text ScoreText;
+    public Text CoinText;
 
     void Start()
     {
@@ -30,6 +33,15 @@ public class GameUIManager : MonoBehaviour
     public void GameOver(GameObject player)
     {
         Instantiate(GameOverCanvas, player.transform.position, Quaternion.identity);
+    }
 
+    public void SetCoinText(int value)
+    {
+        CoinText.text = "Coin: " + value;
+    }
+
+    public void SetScoreText(int value)
+    {
+        ScoreText.text = "Score: " + value;
     }
 }

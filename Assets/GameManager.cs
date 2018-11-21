@@ -2,11 +2,10 @@
 
 public class GameManager : MonoBehaviour
 {
-    // TODO note to self you need to add back in the game state logic that we had to stop counting score
-
-
     public static GameManager Instance;
+
     private int _coin = 0;
+
     void Start ()
 	{
 	    if (Instance != null)
@@ -20,7 +19,6 @@ public class GameManager : MonoBehaviour
 	    // If Instance doesn't exist, we initialize the Player Manager
 	    Init();
 	}
-    
 
     private void Init() {
         Instance = this;
@@ -31,6 +29,7 @@ public class GameManager : MonoBehaviour
     public void CollectCoin()
     {
         _coin++;
+        GameUIManager.Instance.SetCoinText(_coin);
     }
 
     // Return the number of coins that we have collected.
