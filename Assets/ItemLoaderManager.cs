@@ -3,6 +3,7 @@
 public class ItemLoaderManager : MonoBehaviour {
 	public static ItemLoaderManager Instance;
 	public GameObject Coin;
+    public GameObject[] PowerUps;
 
     void Start ()
 	{
