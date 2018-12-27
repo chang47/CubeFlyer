@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ScoreManager : MonoBehaviour {
 
@@ -31,7 +29,12 @@ public class ScoreManager : MonoBehaviour {
     void Update()
     {
         // increase our score and then update our ScoreText UI.
-        _score += Time.deltaTime * 10;
+        float increaseTime = Time.deltaTime * 10;
+        if (PlayerManager.Instance.ContainsPowerUp(PlayerManager.PowerUpType.Score))
+        {
+            increaseTime *= 2;
+        }
+        _score += increaseTime;
         GameUIManager.Instance.SetScoreText((int)_score);
     }
 }

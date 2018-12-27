@@ -8,9 +8,9 @@ public class PlayerManager : MonoBehaviour
     public GameObject Player;
     public GameObject MagnetCollider;
 
-    public enum PowerUpType { Magnet }
+    public enum PowerUpType { Magnet, Score }
     private Dictionary<PowerUpType, PowerUp> powerUpDictionary;
-    private float powerUpDuration = 30f;
+    private float powerUpDuration = 45f;
     private List<PowerUpType> itemsToRemove;
 
     public PlayerState CurrentState

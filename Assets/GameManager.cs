@@ -28,7 +28,12 @@ public class GameManager : MonoBehaviour
     // Called from outside function for when the player collects a coin.
     public void CollectCoin()
     {
-        _coin++;
+        int scoreIncrease = 1;
+        if (PlayerManager.Instance.ContainsPowerUp(PlayerManager.PowerUpType.Score))
+        {
+            scoreIncrease *= 2;
+        }
+        _coin += scoreIncrease;
         GameUIManager.Instance.SetCoinText(_coin);
     }
 

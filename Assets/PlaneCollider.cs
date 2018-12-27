@@ -25,6 +25,9 @@ public class PlaneCollider : MonoBehaviour
             case "Magnet":
                 MagnetCollision(other);
                 break;
+            case "Score":
+                ScoreColllision(other);
+                break;
 			default:
 				CheckUnTaggedCollision(other);
 				break;
@@ -65,6 +68,16 @@ public class PlaneCollider : MonoBehaviour
         ParticleSystem particleSystem = _currentParticleEffect.GetComponent<ParticleSystem>();
         particleSystem.Play();
         magnet.Collect();
+    }
+
+    // Collides with the score multiplier, we add the power up to our list of power-ups
+    // and let the power-up destroy itself from the game.
+    private void ScoreColllision(Collider other)
+    {
+        Debug.Log("score collision hit");
+        PlayerManager.Instance.AddPowerUp(PlayerManager.PowerUpType.Score);
+        ScoreMultiplier score = other.GetComponent<ScoreMultiplier>();
+        score.Collect();
     }
 
     // Check the collided object if it doesn't have a tag to see if it's

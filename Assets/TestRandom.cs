@@ -8,7 +8,6 @@ public class TestRandom : MonoBehaviour
 
     private void Update()
     {
-        print("asdasdasd");
     }
 
     public void TakeDamage(float damage)
