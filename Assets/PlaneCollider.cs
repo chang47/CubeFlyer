@@ -6,6 +6,8 @@ public class PlaneCollider : MonoBehaviour
     public GameObject Explosion;
     public AudioClip MagnetSFX;
     public GameObject MagnetParticleEffect;
+    public AudioClip MultiplierSFX;
+    public GameObject MultiplierParticleEffect;
 
     private SoundManager _soundManager;
     private GameObject _currentParticleEffect;
@@ -78,6 +80,9 @@ public class PlaneCollider : MonoBehaviour
         PlayerManager.Instance.AddPowerUp(PlayerManager.PowerUpType.Score);
         ScoreMultiplier score = other.GetComponent<ScoreMultiplier>();
         score.Collect();
+        _soundManager.PlayBackgroundClip(MultiplierSFX);
+        StopParticleEffect();
+        _currentParticleEffect = Instantiate(MultiplierParticleEffect, PlaneObject.transform);
     }
 
     // Check the collided object if it doesn't have a tag to see if it's

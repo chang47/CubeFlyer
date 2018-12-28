@@ -13,6 +13,7 @@ public class SoundManager : MonoBehaviour {
     public void PlayBackgroundClip(AudioClip audioClip)
     {
         _bgmSource.clip = audioClip;
+        _bgmSource.loop = true;
         _bgmSource.Play();
     }
 
