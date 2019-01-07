@@ -32,7 +32,12 @@ public class GameUIManager : MonoBehaviour
     /// </summary>
     public void GameOver(GameObject player)
     {
-        Instantiate(GameOverCanvas, player.transform.position, Quaternion.identity);
+        GameObject gameOverCanvas = Instantiate(GameOverCanvas, player.transform.position, Quaternion.identity);
+        GameOverCanvasController gameOverController = gameOverCanvas.GetComponent<GameOverCanvasController>();
+        if (gameOverController != null)
+        {
+            gameOverController.GameOver();
+        }
     }
 
     public void SetCoinText(int value)

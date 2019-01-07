@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance;
 
     public Camera GameOverCamera;
+    public PostProcessingProfile Profile;
 
     private Camera _mainCamera;
 
@@ -34,5 +36,17 @@ public class CameraManager : MonoBehaviour
     {
         _mainCamera.gameObject.SetActive(false);
         GameOverCamera.gameObject.SetActive(true);
+    }
+
+    public void AddPostProcessing()
+    {
+        PostProcessingBehaviour behavior = _mainCamera.GetComponent<PostProcessingBehaviour>();
+        behavior.profile = Profile;
+    }
+
+    public void RemovePostProcessing()
+    {
+        PostProcessingBehaviour behavior = _mainCamera.GetComponent<PostProcessingBehaviour>();
+        behavior.profile = null;
     }
 }

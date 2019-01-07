@@ -32,9 +32,14 @@ public class ScoreManager : MonoBehaviour {
         float increaseTime = Time.deltaTime * 10;
         if (PlayerManager.Instance.ContainsPowerUp(PlayerManager.PowerUpType.Score))
         {
-            increaseTime *= 2;
+            increaseTime *= PowerUpsDatabase.MultiplierPowerUps[DataManager.LoadMultiplierLevel()].Effect;
         }
         _score += increaseTime;
         GameUIManager.Instance.SetScoreText((int)_score);
+    }
+
+    public int GetScore()
+    {
+        return (int) _score;
     }
 }

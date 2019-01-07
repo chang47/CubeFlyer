@@ -25,7 +25,12 @@ public class PlaneController : MonoBehaviour
     private void MovePlayer()
     {
         Vector3 movement = GetMoveSpeed(_mainCamera.transform.rotation.x, _mainCamera.transform.rotation.y);
-        transform.position += (transform.forward + movement) / 2;
+        Vector3 forward = transform.forward;
+        if (PlayerManager.Instance.ContainsPowerUp(PlayerManager.PowerUpType.Invincible))
+        {
+            forward *= (int)PowerUpsDatabase.InvinciblePowerUps[DataManager.LoadInvincibleLevel()].Effect;
+        }
+        transform.position += (forward + movement) / 2;
     }
 
     /// <summary>

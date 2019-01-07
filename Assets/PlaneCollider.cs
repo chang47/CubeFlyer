@@ -8,6 +8,7 @@ public class PlaneCollider : MonoBehaviour
     public GameObject MagnetParticleEffect;
     public AudioClip MultiplierSFX;
     public GameObject MultiplierParticleEffect;
+    public AudioClip InvincibleSFX;
 
     private SoundManager _soundManager;
     private GameObject _currentParticleEffect;
@@ -17,9 +18,18 @@ public class PlaneCollider : MonoBehaviour
         _soundManager = GetComponent<SoundManager>();
     }
 
+    void OnCollisionEnter(Collision other)
+    {
+        switch (other.gameObject.tag)
+        {
+            default:
+                CheckUnTaggedCollision(other.gameObject);
+                break;
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
-		print(other + " name " + other.name);
 		switch (other.tag) {
 			case "Coin":
 				CoinCollision(other);
@@ -30,9 +40,9 @@ public class PlaneCollider : MonoBehaviour
             case "Score":
                 ScoreColllision(other);
                 break;
-			default:
-				CheckUnTaggedCollision(other);
-				break;
+            case "Invincible":
+                InvincibleCollision(other);
+                break;
 		}
     }
 
@@ -85,9 +95,18 @@ public class PlaneCollider : MonoBehaviour
         _currentParticleEffect = Instantiate(MultiplierParticleEffect, PlaneObject.transform);
     }
 
+    private void InvincibleCollision(Collider other) {
+        Debug.Log("invincible collision hit");
+        PlayerManager.Instance.AddPowerUp(PlayerManager.PowerUpType.Invincible);
+        Invincible invincible = other.GetComponent<Invincible>();
+        invincible.Collect();
+        _soundManager.PlayBackgroundClip(InvincibleSFX);
+        CameraManager.Instance.AddPostProcessing();
+    }
+
     // Check the collided object if it doesn't have a tag to see if it's
     // something we're also looking for.
-    private void CheckUnTaggedCollision(Collider other) {
+    private void CheckUnTaggedCollision(GameObject other) {
 		if (other.name.Contains("Cube")) {
 			EnemyCollision();
 		}
@@ -96,10 +115,14 @@ public class PlaneCollider : MonoBehaviour
     /// Destroy the player and set the current state to the dead state.
     private void EnemyCollision()
     {
-        Instantiate(Explosion, PlaneObject.transform.position, Quaternion.identity);
-        Destroy(PlaneObject);
-        PlayerManager.Instance.GameOver();
-        GameUIManager.Instance.GameOver(gameObject);
-        CameraManager.Instance.GameOver();
+        if (!PlayerManager.Instance.ContainsPowerUp(PlayerManager.PowerUpType.Invincible))
+        {
+            Instantiate(Explosion, PlaneObject.transform.position, Quaternion.identity);
+            Destroy(PlaneObject);
+            GameManager.Instance.GameOver();
+            PlayerManager.Instance.GameOver();
+            GameUIManager.Instance.GameOver(gameObject);
+            CameraManager.Instance.GameOver();
+        }
     }
 }

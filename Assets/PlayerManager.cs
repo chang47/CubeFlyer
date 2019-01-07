@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject Player;
     public GameObject MagnetCollider;
 
-    public enum PowerUpType { Magnet, Score }
+    public enum PowerUpType { Invincible, Magnet, Score }
     private Dictionary<PowerUpType, PowerUp> powerUpDictionary;
     private float powerUpDuration = 45f;
     private List<PowerUpType> itemsToRemove;
@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
 
 	    // If Instance doesn't exist, we initialize the Player Manager
 	    Init();
+        print(DataManager.LoadCoin());
 	}
 
     void Update()
@@ -78,6 +79,7 @@ public class PlayerManager : MonoBehaviour
         {
             Player.GetComponent<SoundManager>().StopBackgroundClip();
             Player.GetComponent<PlaneCollider>().StopParticleEffect();
+            CameraManager.Instance.RemovePostProcessing(); // if we didn't have any, nothing will change
         }
     }
 

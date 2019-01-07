@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         int scoreIncrease = 1;
         if (PlayerManager.Instance.ContainsPowerUp(PlayerManager.PowerUpType.Score))
         {
-            scoreIncrease *= 2;
+            scoreIncrease *= (int) PowerUpsDatabase.MultiplierPowerUps[DataManager.LoadMultiplierLevel()].Effect;
         }
         _coin += scoreIncrease;
         GameUIManager.Instance.SetCoinText(_coin);
@@ -41,5 +41,11 @@ public class GameManager : MonoBehaviour
     public int GetCoin() 
     {
         return _coin;
+    }
+
+    public void GameOver()
+    {
+        DataManager.AddCoin(_coin);
+        DataManager.AddNewScore(ScoreManager.Instance.GetScore());
     }
 }
